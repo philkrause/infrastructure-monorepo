@@ -51,7 +51,7 @@ jobs:
 
   call-terraform-workflow:
     needs: extract-branch-info
-    uses: philkrause/team-workflows/.github/workflows/terraform.yml@main
+    uses: philkrause/team-workflows/.github/workflows/terraform.yaml@main
     with:
       working_directory: ${{ needs.extract-branch-info.outputs.working_directory }}
       environment: ${{ needs.extract-branch-info.outputs.environment }}
