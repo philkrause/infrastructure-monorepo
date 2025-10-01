@@ -30,14 +30,25 @@ jobs:
             CUSTOMER_ID="${BASH_REMATCH[1]}"
             ENVIRONMENT="${BASH_REMATCH[2]}"
             TFVARS_PROJECT_NAME="customer-$CUSTOMER_ID"
-            WORKING_DIRECTORY="terraform/modules/customer-project"
+            WORKING_DIRECTORY="terraform/projects/customer-$CUSTOMER_ID"
             GCP_PROJECT_ID="caddi-us-c-${CUSTOMER_ID}-${ENVIRONMENT}"
             echo "Customer Project Detected"
           elif [[ $BRANCH_NAME =~ ^shared-([a-zA-Z0-9]+)-.*$ ]]; then
             ENVIRONMENT="${BASH_REMATCH[1]}"
             TFVARS_PROJECT_NAME="shared-infrastructure"
-            WORKING_DIRECTORY="terraform/modules/shared-infrastructure"
-            GCP_PROJECT_ID="caddi-us-inf-${ENVIRONMENT}"
+            WORKING_DIRECTORY="terraform/projects/shared-infrastructure"
+            TFVARS_FILE_PATH="terraform/projects/shared-infrastructure/${ENVIRONMENT}.tfvars"
+            # Extract GCP_PROJECT_ID from the tfvars file
+            if [ -f "$TFVARS_FILE_PATH" ]; then
+              GCP_PROJECT_ID=$(grep -oP 'gcp_project_id = "\K[^"]+' "$TFVARS_FILE_PATH" || echo "")
+              if [ -z "$GCP_PROJECT_ID" ]; then
+                echo "Error: gcp_project_id not found in $TFVARS_FILE_PATH"
+                exit 1
+              fi
+            else
+              echo "Error: TFVARS file not found at $TFVARS_FILE_PATH"
+              exit 1
+            fi
             echo "Shared Infrastructure Project Detected"
           else
             echo "Error: Branch name does not match expected pattern."
