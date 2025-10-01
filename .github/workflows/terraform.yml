@@ -1,0 +1,13 @@
+name: Terraform Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  shared-infrastructure-dev:
+    uses: team-workflows/.github/workflows/terraform.yaml@main
