@@ -13,4 +13,4 @@ on:
 
 jobs:
   plan-and-apply:
-    uses: team-workflows/.github/workflows/terraform.yaml@main
+    uses: philkrause/team-workflows/.github/workflows/terraform.yaml@main
