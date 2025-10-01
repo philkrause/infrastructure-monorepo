@@ -48,6 +48,10 @@ jobs:
           echo "environment=$ENVIRONMENT" >> "$GITHUB_OUTPUT"
           echo "working_directory=$WORKING_DIRECTORY" >> "$GITHUB_OUTPUT"
           echo "gcp_project_id=$GCP_PROJECT_ID" >> "$GITHUB_OUTPUT"
+          echo "Debug: TFVARS_PROJECT_NAME = $TFVARS_PROJECT_NAME"
+          echo "Debug: ENVIRONMENT = $ENVIRONMENT"
+          echo "Debug: WORKING_DIRECTORY = $WORKING_DIRECTORY"
+          echo "Debug: GCP_PROJECT_ID = $GCP_PROJECT_ID"
 
   call-terraform-workflow:
     needs: extract-branch-info
