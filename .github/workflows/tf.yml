@@ -90,6 +90,10 @@ jobs:
         with:
           terraform_version: 1.x.x
 
+      - name: Terraform Init
+        working-directory: ${{ needs.extract-branch-info.outputs.working_directory }}
+        run: terraform init
+
       - name: Run tfsec
         uses: aquasecurity/tfsec-action@v1.0.0
         with:
