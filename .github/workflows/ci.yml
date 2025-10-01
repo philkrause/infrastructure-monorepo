@@ -38,6 +38,9 @@ jobs:
             TFVARS_PROJECT_NAME="shared-infrastructure"
             WORKING_DIRECTORY="terraform/projects/shared-infrastructure"
             TFVARS_FILE_PATH="terraform/projects/shared-infrastructure/${ENVIRONMENT}.tfvars"
+            echo "Debug: Checking directory: terraform/projects/shared-infrastructure/"
+            ls -l terraform/projects/shared-infrastructure/
+            echo "Debug: Checking TFVARS_FILE_PATH: $TFVARS_FILE_PATH"
             # Extract GCP_PROJECT_ID from the tfvars file
             if [ -f "$TFVARS_FILE_PATH" ]; then
               GCP_PROJECT_ID=$(grep -oP 'gcp_project_id = "\K[^"]+' "$TFVARS_FILE_PATH" || echo "")
