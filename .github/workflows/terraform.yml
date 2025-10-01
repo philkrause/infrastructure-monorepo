@@ -30,13 +30,13 @@ jobs:
             CUSTOMER_ID="${BASH_REMATCH[1]}"
             ENVIRONMENT="${BASH_REMATCH[2]}"
             TFVARS_PROJECT_NAME="customer-$CUSTOMER_ID"
-            WORKING_DIRECTORY="infrastructure/terraform/modules/customer-project"
+            WORKING_DIRECTORY="terraform/modules/customer-project"
             GCP_PROJECT_ID="caddi-us-c-${CUSTOMER_ID}-${ENVIRONMENT}"
             echo "Customer Project Detected"
           elif [[ $BRANCH_NAME =~ ^shared-([a-zA-Z0-9-]+)-([a-zA-Z0-9-]+)$ ]]; then
             ENVIRONMENT="${BASH_REMATCH[1]}"
             TFVARS_PROJECT_NAME="shared-infrastructure"
-            WORKING_DIRECTORY="infrastructure/terraform/modules/shared-infrastructure"
+            WORKING_DIRECTORY="terraform/modules/shared-infrastructure"
             GCP_PROJECT_ID="caddi-us-inf-${ENVIRONMENT}"
             echo "Shared Infrastructure Project Detected"
           else
