@@ -3,11 +3,14 @@ name: Terraform Workflow
 on:
   push:
     branches:
-      - main
+      - 'customer-*'
+      - 'shared-*'
   pull_request:
     branches:
-      - main
+      - 'customer-*'
+      - 'shared-*'
+
 
 jobs:
-  shared-infrastructure-dev:
+  plan-and-apply:
     uses: team-workflows/.github/workflows/terraform.yaml@main
