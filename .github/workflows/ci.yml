@@ -19,6 +19,8 @@ jobs:
         id: extract
         run: |
           BRANCH_NAME="${{ github.head_ref || github.ref_name }}"
+          echo "Debug: Listing /github/workspace contents:"
+          ls -l /github/workspace
           echo "Branch Name: $BRANCH_NAME"
 
           TFVARS_PROJECT_NAME=""
