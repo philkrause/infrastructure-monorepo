@@ -3,7 +3,7 @@ name: Terraform Debug Workflow
 on:
   push:
     branches:
-      - main
+      - '**' # Trigger on push to any branch
   workflow_dispatch:
 
 jobs:
