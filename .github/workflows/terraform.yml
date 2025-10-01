@@ -30,13 +30,13 @@ jobs:
             CUSTOMER_ID="${BASH_REMATCH[1]}"
             ENVIRONMENT="${BASH_REMATCH[2]}"
             TFVARS_PROJECT_NAME="customer-$CUSTOMER_ID"
-            WORKING_DIRECTORY="terraform/modules/customer-project"
+            WORKING_DIRECTORY="infrastructure/terraform/modules/customer-project"
             GCP_PROJECT_ID="caddi-us-c-${CUSTOMER_ID}-${ENVIRONMENT}"
             echo "Customer Project Detected"
-          elif [[ $BRANCH_NAME =~ ^shared-([a-zA-Z0-9-]+)-([a-zA-Z0-9-]+)$ ]]; then
+          elif [[ $BRANCH_NAME =~ ^shared-([a-zA-Z0-9-]+)-(.*)$ ]]; then # Updated regex for shared branches
             ENVIRONMENT="${BASH_REMATCH[1]}"
             TFVARS_PROJECT_NAME="shared-infrastructure"
-            WORKING_DIRECTORY="terraform/modules/shared-infrastructure"
+            WORKING_DIRECTORY="infrastructure/terraform/modules/shared-infrastructure"
             GCP_PROJECT_ID="caddi-us-inf-${ENVIRONMENT}"
             echo "Shared Infrastructure Project Detected"
           else
@@ -51,7 +51,7 @@ jobs:
 
   call-terraform-workflow:
     needs: extract-branch-info
-    uses: philkrause/team-workflows/.github/workflows/terraform.yaml@main
+    uses: YOUR_GITHUB_USERNAME/team-workflows/.github/workflows/terraform.yml@main
     with:
       working_directory: ${{ needs.extract-branch-info.outputs.working_directory }}
       environment: ${{ needs.extract-branch-info.outputs.environment }}
